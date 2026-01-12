@@ -1,11 +1,11 @@
-# from fastapi import FastAPI, APIrouter
+from fastapi import FastAPI
+import routes
+import uvicorn
+
+app = FastAPI() 
+
+app.include_router(routes.router)
 
 
-# app = FastAPI() 
-
-# app.include_router(browser)
-# app.include_router(a)
-
-# @browser.get
-# browser = APIrouter()
-
+if __name__ == "__main__":
+    uvicorn.run(app, host='localhost', port=8000)
