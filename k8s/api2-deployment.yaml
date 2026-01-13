@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api2
+  labels:
+    app: api2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api2
+  template:
+    metadata:
+      labels:
+        app: api2
+    spec:
+      containers:
+      - name: api2
+        image: taktuk/server_b-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+          - name: REDIS_HOST
+            value: redis
+
+
+
