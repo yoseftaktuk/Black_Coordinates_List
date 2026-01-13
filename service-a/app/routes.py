@@ -2,6 +2,7 @@ from fastapi import APIRouter, FastAPI, HTTPException
 import service
 import schemas
 
+
 app = FastAPI()
 router = APIRouter()
 
@@ -18,4 +19,11 @@ def read_users(ip: str):
             return {'message': str(e)}
     return {'masseges': check['message']}    
 
+@router.get('/get_all')
+def get_all_items():
+    result = service.get_all()
+    if result['bool']:
+        return result['result']
+    return result['bool']
+    
 

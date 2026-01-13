@@ -22,3 +22,11 @@ def send_to_service_b(data: dict):
         return send.json()
     except HTTPError as e:
         return {'message': str(e)}
+    
+def get_all():
+    url = f'{BASEURL}/coordinates'
+    try:
+        result = requests.get(url=url, timeout=3)
+        return {'result': result.json(), "bool": True}    
+    except HTTPError as e:
+        return {'message': str(e), 'bool': False}    
