@@ -1,0 +1,39 @@
+
+
+services:
+  api1:
+    image: taktuk/server_a-api:latest
+    ports:
+      - 8000:8000
+    networks:
+      - backend 
+    depends_on:
+      - api2    
+
+  api2:
+    image: taktuk/server_b-api:latest
+    ports:
+      - "5002:5000"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - backend  
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend  
+
+volumes:
+  redis_data:
+
+networks:
+  backend:
+    driver: bridge  

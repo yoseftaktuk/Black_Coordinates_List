@@ -1,14 +1,16 @@
 import requests
 from requests import HTTPError
 import schemas
-BASEURL = 'http://192.168.20.179:8080'
+BASEURL = 'http://api2:8000'
 
 def getting_location_by_ip(ip: str):
     try:
         response = requests.get(f'''http://ip-api.com/json/{ip}''')
         result = response.json()
-        schemas.check_coordinate(result['lat'], result['lon'])
-        return {'ip': result['query'], 'longitude':result['lon'], 'latitude':  result['lat']}
+        check = schemas.check_coordinate(result['lat'], result['lon'])
+        if check['bool']:
+            return {'ip': result['query'], 'longitude':result['lon'], 'latitude':  result['lat']}
+        return check['message']
     except HTTPError as e:
         return {'message': str(e)}
 

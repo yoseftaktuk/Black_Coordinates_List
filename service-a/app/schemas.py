@@ -17,16 +17,16 @@ def check_ip(ip: str):
         the_ip = Ip(my_ip=ip)
         return the_ip.my_ip
     except ValidationError as e:
-        return {'message': str(e)}
+        return {'message': str(e), 'bool': False}
     
 
 
 def check_coordinate(latitude, longitude):
     try:
         coordinate = Location(coordinate=(latitude, longitude))
-        return {'latitude': coordinate.coordinate.latitude, 'longitude':coordinate.coordinate.longitude} 
+        return {'latitude': coordinate.coordinate.latitude, 'longitude':coordinate.coordinate.longitude, 'bool': True} 
     except ValidationError as e:
-        return {'message': str(e)} 
+        return {'message': str(e),'bool': False} 
     
 
 
