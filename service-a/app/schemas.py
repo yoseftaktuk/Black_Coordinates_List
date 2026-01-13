@@ -15,7 +15,7 @@ class Location(BaseModel):
 def check_ip(ip: str):
     try:
         the_ip = Ip(my_ip=ip)
-        return the_ip.my_ip
+        return {'bool': True}
     except ValidationError as e:
         return {'message': str(e), 'bool': False}
     
