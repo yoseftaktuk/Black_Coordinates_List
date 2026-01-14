@@ -11,23 +11,6 @@ class Ip(BaseModel):
 class Location(BaseModel):
     coordinate: Coordinate
 
-
-def check_ip(ip: str):
-    try:
-        the_ip = Ip(my_ip=ip)
-        return {'bool': True}
-    except ValidationError as e:
-        return {'message': str(e), 'bool': False}
-    
-
-
-def check_coordinate(latitude, longitude):
-    try:
-        coordinate = Location(coordinate=(latitude, longitude))
-        return {'latitude': coordinate.coordinate.latitude, 'longitude':coordinate.coordinate.longitude, 'bool': True} 
-    except ValidationError as e:
-        return {'message': str(e),'bool': False} 
-    
     
 class Coordinates(BaseModel):
     ip: str

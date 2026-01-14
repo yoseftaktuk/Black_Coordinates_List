@@ -1,19 +1,19 @@
 from fastapi import APIRouter, FastAPI, HTTPException
 import service
-from shared import models
+import utils
 
 app = FastAPI()
 router = APIRouter()
-
+service_manager = service.Service()
 
 @router.post("/post_to_redit/{ip}")
 
 def read_users(ip: str):
-    check = models.check_ip(ip)#Checks that the IP is correct.
-    if check['bool']:
+    check = utils.check_ip(ip)#Checks that the IP is correct.
+    if check['succeeded']:
         try:
-            result  = service.getting_location_by_ip(ip=ip)#Sends a get request to get location by IP
-            send = service.send_to_service_b(result)#Sends a post request to  api server to save in redis
+            result  = service_manager.getting_location_by_ip(ip=ip)#Sends a get request to get location by IP
+            send = service_manager.send_to_service_b(result)#Sends a post request to  api server to save in redis
             return send
         except HTTPException as e:
             return {'message': str(e)}
@@ -21,9 +21,9 @@ def read_users(ip: str):
 
 @router.get('/get_all')
 def get_all_items():
-    result = service.get_all()
-    if result['bool']:
+    result = service_manager.get_all()
+    if result['succeeded']:
         return result['result']
-    return result['bool']
+    return result['succeeded']
     
 
