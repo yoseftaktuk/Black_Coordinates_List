@@ -1,13 +1,14 @@
 import requests
 from requests import HTTPError
-import schemas
+from shared import models
+
 BASEURL = 'http://api2:8000'
 
 def getting_location_by_ip(ip: str):
     try:
         response = requests.get(f'''http://ip-api.com/json/{ip}''')
         result = response.json()
-        check = schemas.check_coordinate(result['lat'], result['lon'])
+        check = models.check_coordinate(result['lat'], result['lon'])#Checking that the coordinates are correct
         if check['bool']:
             return {'ip': result['query'], 'longitude':result['lon'], 'latitude':  result['lat']}
         return check['message']
@@ -24,6 +25,8 @@ def send_to_service_b(data: dict):
         return {'message': str(e)}
     
 def get_all():
+    """This function sends a get request to the server
+      to retrieve all the stored information."""
     url = f'{BASEURL}/coordinates'
     try:
         result = requests.get(url=url, timeout=3)

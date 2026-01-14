@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from schemas import Coordinates
+from shared.models import Coordinates 
 from storage import save_coordinates,get_all_coordinates
 
 

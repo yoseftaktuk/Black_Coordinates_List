@@ -28,3 +28,8 @@ def check_coordinate(latitude, longitude):
     except ValidationError as e:
         return {'message': str(e),'bool': False} 
     
+    
+class Coordinates(BaseModel):
+    ip: str
+    latitude: float
+    longitude: float
