@@ -26,9 +26,6 @@ spec:
         - name: redis-storage
           mountPath: /data
 
-        command: ["redis-server"]
-        args: ["--appendonly", "yes"]
-
         resources:
           requests:
             memory: "256Mi"
@@ -36,22 +33,6 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
-
-        livenessProbe:
-          exec:
-            command:
-            - redis-cli
-            - ping
-          initialDelaySeconds: 30
-          periodSeconds: 10
-
-        readinessProbe:
-          exec:
-            command:
-            - redis-cli
-            - ping
-          initialDelaySeconds: 10
-          periodSeconds: 5
 
   volumeClaimTemplates:
   - metadata:
