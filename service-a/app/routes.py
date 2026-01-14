@@ -1,6 +1,6 @@
 from fastapi import APIRouter, FastAPI, HTTPException
 import service
-import schemas
+from schemas import check_ip
 
 
 app = FastAPI()
@@ -8,8 +8,9 @@ router = APIRouter()
 
 
 @router.post("/post_to_redit/{ip}")
+
 def read_users(ip: str):
-    check = schemas.check_ip(ip)
+    check = check_ip(ip)
     if check['bool']:
         try:
             result  = service.getting_location_by_ip(ip=ip)
@@ -17,7 +18,7 @@ def read_users(ip: str):
             return send
         except HTTPException as e:
             return {'message': str(e)}
-    return {'masseges': check['message']}    
+    return {'masseges': check['message'][:75]}    
 
 @router.get('/get_all')
 def get_all_items():

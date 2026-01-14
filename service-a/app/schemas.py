@@ -30,5 +30,3 @@ def check_coordinate(latitude, longitude):
     
 
 
-
-
